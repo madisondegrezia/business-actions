@@ -1,13 +1,14 @@
-name: Build
+name: Test
 
 on:
-  push:
-    branches: [ main ]
-
+  pull_request:
+      branches: [ main ]
+      
+# top-level call-out of the different tasks within the workflow
 jobs:
 # job id
-  build:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-latest
 
     # list of steps to complete in the workflow, in order
@@ -18,6 +19,6 @@ jobs:
         with:
           # the node version for the setup-node action
           node-version: 16.x
-      # Install packages and build project
+      # Install packages and run tests
       - run: npm ci
-      - run: npm run build
+      - run: npm test
